@@ -84,7 +84,7 @@ contract RequestFactory {
         managerFactory = _managerFactory;
     }
 
-    function addNewRequest(string memory description, uint amount, address payable recipient) public{
+    function addNewRequest(string memory description, uint amount, address payable recipient, uint minimumContribution) public{
         require(amount >= minimumAmount, "you can't request less money");
         Manager m = ManagerFactory(managerFactory).getManager(msg.sender);
 
@@ -93,16 +93,19 @@ contract RequestFactory {
         // already holding person can't have a new store
         require(!m.holding(), "you have already requested");
 
-        Request request = new Request(description, amount, recipient, m);
+        Request request = new Request(description, amount, recipient, m, minimumContribution);
         requests.push(request);
 
         m.addHolding();     //can add a store reference as well
     }
+
+    function requestsSize() external view returns(uint) {
+        return requests.length;
+    }
 }
 
 contract Request {
-    uint constant public minimumContribution = 100;
-
+    uint public minimumContribution;
     Manager public  manager;  //the manager
     string public description;
     uint public  amount;
@@ -122,11 +125,12 @@ contract Request {
         _;
     }
     
-    constructor(string memory _description, uint _amount, address payable _recipient, Manager _m) {
+    constructor(string memory _description, uint _amount, address payable _recipient, Manager _m, uint _minimumContribution) {
         description = _description;
         amount = _amount;
         recipient = _recipient;
         manager = _m;
+        minimumContribution = _minimumContribution;
     }
 
     function contribute() external payable isOpen {
