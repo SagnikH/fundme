@@ -1,7 +1,7 @@
-import Head from "next/head";
-import Image from "next/image";
+import NavigationBar from '../components/NavigationBar';
 import styles from "../styles/Home.module.css";
 import { useEffect, useState } from "react";
+import 'bootstrap/dist/css/bootstrap.min.css';
 import web3 from "../ethereum/web3";
 import requestFactory from "../ethereum/requestFactory";
 
@@ -65,6 +65,9 @@ export default function Home(props) {
 			<button onClick={connect}> Connect </button>
 			<h2>{JSON.stringify(props.requests)}</h2>
 			<button onClick={newRequest}>Add new Request </button>
+			<div className={styles.index}>
+					Hello world
+			</div>
 		</>
 	);
 }
