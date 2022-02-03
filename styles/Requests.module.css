@@ -1,0 +1,28 @@
+.requests{
+    flex: 1;
+    color: #21b8af;
+    margin: 30px auto;
+}
+
+.listItem{
+    display: flex;
+    justify-content: space-between;
+    width: 50vw;
+    background: rgba(17, 15, 64, 0.5);
+    margin: 15px;
+    padding: 10px;
+    border-radius: 10px;
+    cursor: pointer;
+}
+
+.listItem:hover{
+    box-shadow: 0 3px 35px rgba(255,255,255, 0.5);
+    background: rgba(17, 15, 64, 1);
+    color: white;
+}
+
+@media only screen and (max-width: 500px) {
+    .listItem {
+      width: 80vw;
+    }
+  }

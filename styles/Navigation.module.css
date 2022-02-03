@@ -1,0 +1,20 @@
+.navbar{
+    background: rgba(255, 255, 255, 0.1) !important;
+}
+
+.text{
+    text-decoration: none !important;
+    color: #FFFFFF !important;
+    margin: 0 10px;
+}
+.text:hover{
+    color: #5cb85c !important;
+}
+
+.logo{
+    color: white !important; 
+}
+
+.logo:hover{
+    color: #5cb85c !important;
+}
