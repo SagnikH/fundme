@@ -1,6 +1,8 @@
+import styles from '../styles/Footer.module.css';
+
 const Footer = () => {
     return ( 
-        <div className='text-secondary text-center my-2'>
+        <div className={styles.footer}>
            Apes Webdev
         </div>
      );

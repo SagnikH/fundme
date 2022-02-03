@@ -7,22 +7,25 @@ const requests = ({data}) => {
         <div className={styles.requests}>
             <div className='ms-3 mb-5'>
                 <Link href='/newRequest'>
-                    <Button variant='success'>Create New Request</Button>
+                    <Button className={styles.button}>Create New Request</Button>
                 </Link>
             </div>
             <div>
                 {data.map((el, i) => {
+                    const linkUrl = '/request/' + el.id; 
                     return (
-                        <div key={i} className={styles.listItem}>
-                            <div className='d-flex flex-column'>
-                                <div>Requested by: {el.walletId}</div>
-                                <div>Rating: {el.rating}</div>
-                            </div>
-                            <div className='d-flex flex-column'>
-                                <div>Minimum Contribution: {el.minContribution}</div>
-                                <div>Demanded Amount: {el.demandedAmount}</div>
-                            </div>
-                        </div>
+                        <Link href={linkUrl}>
+                            <a key={i} className={styles.listItem}>
+                                <div className='d-flex flex-column pe-2'>
+                                    <div>Requested by: {el.walletId}</div>
+                                    <div>Rating: {el.rating}</div>
+                                </div>
+                                <div className='d-flex flex-column ps-2'>
+                                    <div>Minimum Contribution: {el.minContribution}</div>
+                                    <div>Demanded Amount: {el.demandedAmount}</div>
+                                </div>
+                            </a>
+                        </Link>
                     )
                 })}
             </div>
@@ -35,60 +38,70 @@ export default requests;
 export async function getServerSideProps(context) {
     const data = [
         {
+            id: 1,
             walletId: 'AABA11924',
             rating: 3,
             minContribution: 500,
             demandedAmount: 100000
         },
         {
+            id: 2,
             walletId: 'AABA11924',
             rating: 3,
             minContribution: 500,
             demandedAmount: 100000
         },
         {
+            id: 3,
             walletId: 'AABA11924',
             rating: 3,
             minContribution: 500,
             demandedAmount: 100000
         },
         {
+            id: 4,
             walletId: 'AABA11924',
             rating: 3,
             minContribution: 500,
             demandedAmount: 100000
         },
         {
+            id: 5,
             walletId: 'AABA11924',
             rating: 3,
             minContribution: 500,
             demandedAmount: 100000
         },
         {
+            id: 6,
             walletId: 'AABA11924',
             rating: 3,
             minContribution: 500,
             demandedAmount: 100000
         },
         {
+            id: 7,
             walletId: 'AABA11924',
             rating: 3,
             minContribution: 500,
             demandedAmount: 100000
         },
         {
+            id: 8,
             walletId: 'AABA11924',
             rating: 3,
             minContribution: 500,
             demandedAmount: 100000
         },
         {
+            id: 9,
             walletId: 'AABA11924',
             rating: 3,
             minContribution: 500,
             demandedAmount: 100000
         },
         {
+            id: 10,
             walletId: 'AABA11924',
             rating: 3,
             minContribution: 500,

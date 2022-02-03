@@ -1,14 +1,14 @@
 .navbar{
-    background: rgba(255, 255, 255, 0.1) !important;
+    background: rgba(0,0,0,0.4) !important;
 }
 
 .text{
     text-decoration: none !important;
-    color: #FFFFFF !important;
+    color: white !important;
     margin: 0 10px;
 }
 .text:hover{
-    color: #5cb85c !important;
+    color: #00fff2 !important;
 }
 
 .logo{
@@ -16,5 +16,5 @@
 }
 
 .logo:hover{
-    color: #5cb85c !important;
+    color: #ff4d4d !important;
 }
