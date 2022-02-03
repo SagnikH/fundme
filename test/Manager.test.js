@@ -44,7 +44,7 @@ describe("Manager Factory", () => {
 
 	it("get the new Request contract", async () => {
 		await requestFactory.methods
-			.addNewRequest("cricket", 1000, accounts[1])
+			.addNewRequest("cricket", 1000, accounts[1], 100)
 			.send({
 				from: accounts[0],
 				gas: "2000000",
@@ -62,7 +62,7 @@ describe("Manager Factory", () => {
 
 		try {
 			await requestFactory.methods
-				.addNewRequest("football", 1000, accounts[1])
+				.addNewRequest("football", 1000, accounts[1], 100)
 				.send({
 					from: accounts[0],
 					gas: "2000000",
@@ -74,7 +74,7 @@ describe("Manager Factory", () => {
 
 	it("manager contract checks", async () => {
 		await requestFactory.methods
-			.addNewRequest("cricket", 1000, accounts[1])
+			.addNewRequest("cricket", 1000, accounts[1], 100)
 			.send({
 				from: accounts[0],
 				gas: "2000000",

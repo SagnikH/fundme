@@ -4,7 +4,9 @@ import 'bootstrap/dist/css/bootstrap.min.css';
 import { useEffect } from "react";
 import web3 from "../ethereum/web3";
 
-export default function Home() {
+import requestList from "../utils/requestsList";
+
+export default function Home(props) {
 	let currentAccount;
 
 	useEffect(() => {
@@ -12,15 +14,15 @@ export default function Home() {
 			window.ethereum.on("accountsChanged", handleAccountsChanged);
 	}, []);
 
-  const handleAccountsChanged = (accounts) => {
-    if (accounts.length === 0) {
-      // MetaMask is locked or the user has not connected any accounts
-      console.log('Please connect to MetaMask.');
-    } else if (accounts[0] !== currentAccount) {
-      currentAccount = accounts[0];
-      console.log("current account", currentAccount);
-    }
-  }
+	const handleAccountsChanged = (accounts) => {
+		if (accounts.length === 0) {
+			// MetaMask is locked or the user has not connected any accounts
+			console.log("Please connect to MetaMask.");
+		} else if (accounts[0] !== currentAccount) {
+			currentAccount = accounts[0];
+			console.log("current account", currentAccount);
+		}
+	};
 
 	const connect = async () => {
 		try {
@@ -47,4 +49,15 @@ export default function Home() {
 			</div>
 		</>
 	);
+}
+
+export async function getServerSideProps(context) {
+	const minimumAmount = await requestList();
+	console.log("min Amount", minimumAmount);
+
+	return {
+		props: {
+			minimumAmount,
+		}, // will be passed to the page component as props
+	};
 }
