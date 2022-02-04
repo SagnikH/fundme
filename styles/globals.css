@@ -7,12 +7,12 @@ body {
 }
 
 body{
-  /* background: url('../public/background.png');
+  background: url('../public/background5.jpg');
   background-attachment: fixed;
   background-size: cover;
-  background-position: center; */
-  background-color: #130f40;
-  background-image: linear-gradient(180deg, #08071c 50%, #000000);
+  background-position: center;
+  /* background-color: #130f40;
+  background-image: linear-gradient(180deg, #08071c 50%, #000000); */
 }
 
 a {
