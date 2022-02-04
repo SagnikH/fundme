@@ -23,7 +23,7 @@ export default function NavigationBar() {
 			<Container>
 				<Link href="/">
 					<Navbar.Brand href="#home" className={styles.logo}>
-						LetsContribute
+						FundUs
 					</Navbar.Brand>
 				</Link>
 				<Navbar.Toggle aria-controls="basic-navbar-nav" />

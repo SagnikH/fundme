@@ -18,11 +18,11 @@ const requests = ({ data }) => {
 					return (
 						<Link key={i} href={linkUrl}>
 							<a className={styles.listItem}>
-								<div className="d-flex flex-column pe-2">
+								<div className="d-flex flex-column">
 									<div>Requested by: {el.walletId}</div>
 									<div>Rating: {el.rating}</div>
 								</div>
-								<div className="d-flex flex-column ps-2">
+								<div className="d-flex flex-column">
 									<div>Minimum Contribution: {el.minContribution}</div>
 									<div>Demanded Amount: {el.demandedAmount}</div>
 								</div>

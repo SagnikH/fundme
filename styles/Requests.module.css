@@ -8,15 +8,17 @@
 }
 
 .button{
-    background-color: rgba(62, 255, 207, 0.9) !important;
+    background-color: rgba(0, 34, 39, 0.8) !important;
     border-radius: 20px;
     box-shadow: 0 3px 5px rgba(255,255,255, 0.5);
     border: none;
-    color: rgb(3, 0, 94);
+    color: #00fff2;
+    border: 1px solid #00fff2;
 }
 .button:hover{
     box-shadow: 0 3px 25px rgba(255,255,255, 0.5);
-    color: rgb(3, 0, 94);
+    color: #00fff2;
+    border: 1px solid #00fff2;
 }
 
 .listItem{
@@ -24,22 +26,25 @@
     display: flex;
     justify-content: space-between;
     width: 50vw;
-    background: rgba(17, 15, 64, 0.9);
-    margin: 15px;
+    background: rgba(0, 27, 29, 0.7);
+    margin: 25px;
     padding: 10px;
     border-radius: 10px;
     cursor: pointer;
     color: white;
+    border: 1px solid rgb(218, 211, 255);
+    box-shadow: 0 3px 5px rgba(255,255,255, 0.3);
 }
 
 .listItem:hover{
     box-shadow: 0 3px 35px rgba(255,255,255, 0.5);
-    background: rgba(17, 15, 64, 1);
+    background: rgba(0, 46, 49, 0.7);
     color: #00fff2 !important;
 }
 
-@media only screen and (max-width: 900px) {
+@media only screen and (max-width: 1100px) {
     .listItem {
       width: 80vw;
+      flex-direction: column;
     }
   }

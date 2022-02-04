@@ -1,3 +1,51 @@
 .singleRequest{
     flex: 1;
+    min-height: 75vh;
+    width: 70vw;
+    color: #00fff2;
+    background: rgba(0,0,0,0.5);
+    padding: 20px;
+    border-radius: 20px;
+    border: 1px solid #00fff2;
+    box-shadow: 0 3px 5px rgba(255,255,255, 0.5);
+}
+
+.descriptionBox{
+    width: 50vw;
+}
+
+.description{
+    height: 35vh;
+    border: 1px solid grey;
+    margin: 5px;
+    padding: 5px;
+    border-radius: 10px;
+}
+
+.input {
+    background: rgba(0,0,0,0.6);
+}
+
+.button{
+    width: 75px;
+}
+
+.btn1{
+    border: 1px solid white !important;
+    box-shadow: 0 3px 5px rgba(255,255,255, 0.5);
+    background-color: rgba(0, 60, 68, 0.8) !important;
+}
+
+.btn1:hover{
+    box-shadow: 0 3px 25px rgba(255,255,255, 0.5);
+}
+
+.btn2{
+    border: 1px solid white !important;
+    box-shadow: 0 3px 5px rgba(255,255,255, 0.5);
+    background-color: rgba(104, 0, 40, 0.8) !important;
+}
+
+.btn2:hover{
+    box-shadow: 0 3px 25px rgba(255,255,255, 0.5);
 }
