@@ -12,25 +12,22 @@ const requestsList = async () => {
 		const requestsSize = await RequestFactory.methods.requestsSize().call();
 
 		for (let index = 0; index < requestsSize; index++) {
-			let currentRequestAddress = await RequestFactory.methods
-				.requests(index)
-				.call();
+			let currentRequestAddress = await RequestFactory.methods.requests(index).call();
 
 			let Request = await request(currentRequestAddress);
 			let managerContractAddress = await Request.methods.manager().call();
 			let Manager = await manager(managerContractAddress);
 			let managerRating = await Manager.methods.rating().call();
 			let managerId = await Manager.methods.id().call();
-			let minimumContribution = await Request.methods
-				.minimumContribution()
-				.call();
+			let minimumContribution = await Request.methods.minimumContribution().call();
 			let requestedAmount = await Request.methods.amount().call();
 
 			let requestObj = {
-				managerRating,
-				managerId,
-				minimumContribution,
-				requestedAmount,
+        id: currentRequestAddress,
+				rating: managerRating,
+				walletId: managerId,
+				minContribution: minimumContribution,
+				demandedAmount: requestedAmount,
 			};
 
 			requests.push(requestObj);

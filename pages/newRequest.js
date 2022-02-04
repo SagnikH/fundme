@@ -18,7 +18,7 @@ const newRequest = () => {
 			const RequestFactory = await requestFactory();
 			console.log(accounts[0]);
 			await RequestFactory.methods
-				.addNewRequest("cricket", 1000, "0xc620C0C0da1A0856B71c1c39aF6883c35F8db1E8", 100)
+				.addNewRequest("football", 200, "0xc620C0C0da1A0856B71c1c39aF6883c35F8db1E8", 100)
 				.send({ from: accounts[0] });
 		} catch (e) {
 			if (e.code === 4001) {
