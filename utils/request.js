@@ -46,49 +46,44 @@ class Request {
 	}
 
 	async contribute(amount, account) {
-    try{
-      await this.#Request.methods.contribute().send({
-        value: amount,
-        from: account
-      });
-    } catch (e) {
-      console.error(e);
-      return e.message;
-    }
-  }
+		try {
+			await this.#Request.methods.contribute().send({ value: amount, from: account });
+		} catch (e) {
+			console.error(e);
+			return e.message;
+		}
+	}
 
-  async approve() {
-    try {
-      await this.#Request.methods.approve().call();
-    } catch (e) {
-      console.log(e.message);
-    }
-  }
+	async approve() {
+		try {
+			await this.#Request.methods.approve().call();
+		} catch (e) {
+			console.log(e.message);
+		}
+	}
 
-  async banRequest() {
-    try {
-      await this.#Request.methods.banRequest().call();
-    } catch (e) {
-      console.log(e.message);
-    }
-  }
+	async banRequest() {
+		try {
+			await this.#Request.methods.banRequest().call();
+		} catch (e) {
+			console.log(e.message);
+		}
+	}
 
-  async rate(rating) {
-    try {
-      this.#Manager.methods.rate(rating).send({
-        from: account
-      });
-    } catch(e) {
-      console.log(e.message);
-    }
-  }
+	async rate(rating) {
+		try {
+			this.#Manager.methods.rate(rating).send({ from: account });
+		} catch (e) {
+			console.log(e.message);
+		}
+	}
 
-  async hasBanned(account) {
-    try {
-      return this.#Request.methods.bans(account).call();
-    } catch (e) {
-      console.error(e.message);
-      return true;
-    }
-  }
+	async hasBanned(account) {
+		try {
+			return this.#Request.methods.bans(account).call();
+		} catch (e) {
+			console.error(e.message);
+			return true;
+		}
+	}
 }

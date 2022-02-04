@@ -25,21 +25,6 @@ export default function Home(props) {
 		}
 	};
 
-	const newRequest = async () => {
-		//description, amount, receipient, minAmount
-		try {
-			const RequestFactory = await requestFactory();
-			console.log(RequestFactory);
-      console.log(currentAccount);
-			await RequestFactory.methods
-				.addNewRequest("cricket", 1000, "0xc620C0C0da1A0856B71c1c39aF6883c35F8db1E8", 100)
-				.send({
-					from: currentAccount
-				});
-		} catch (e) {
-			console.error(e.message);
-		}
-	};
 
 	const connect = async () => {
 		try {
@@ -61,10 +46,10 @@ export default function Home(props) {
 
 	return (
 		<>
-			<h1>Connect to metamask</h1>
+			{/* <h1>Connect to metamask</h1>
 			<button onClick={connect}> Connect </button>
 			<h2>{JSON.stringify(props.requests)}</h2>
-			<button onClick={newRequest}>Add new Request </button>
+			<button onClick={newRequest}>Add new Request </button> */}
 			<div className={styles.index}>
 					Hello world
 			</div>
