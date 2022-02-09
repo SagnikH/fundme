@@ -1,19 +1,24 @@
-import { Nav, Navbar, Container } from "react-bootstrap";
+import { Nav, Navbar, Container, Button } from "react-bootstrap";
 import styles from "../styles/Navigation.module.css";
 import Link from "next/link";
+import web3 from "../ethereum/web3";
 
 export default function NavigationBar() {
-	const connect = async () => {
+	const connect = async (e) => {
+    e.preventDefault();
+
 		try {
 			const accounts = await ethereum.request({ method: "eth_requestAccounts" });
 			console.log("received eth wallets", accounts);
 			const ether = await web3.eth.getBalance(accounts[0]);
 			console.log("ether in account", ether);
+      window.alert("connected to metamask");
 		} catch (e) {
 			if (e.code === 4001) {
 				console.log("Please connect to metamask");
 			} else {
 				console.error(e.message);
+        window.alert("You need metamask installed!!!");
 			}
 		}
 	};
@@ -38,9 +43,10 @@ export default function NavigationBar() {
 						<Link href="/aboutUs">
 							<a className={styles.text}>About Us</a>
 						</Link>
-						<Link href="/signIn">
+						{/* <Link href="/signIn">
 							<a className={styles.text}>Sign In</a>
-						</Link>
+						</Link> */}
+            <Button className={styles.text} onClick={connect}>Connect</Button>
 					</Nav>
 				</Navbar.Collapse>
 			</Container>
