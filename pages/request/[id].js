@@ -37,7 +37,7 @@ const request = (props) => {
             <div className={`d-flex flex-column justify-content-between
                             align-items-center ${styles.descriptionBox}`}>
                 <h5 className={`text-secondary`}>Description</h5>
-                <div className={`w-75 text-center ${styles.description}`}>{description}</div>
+                <div className={`w-100 w-md-75 text-center ${styles.description}`}>{description}</div>
                 <Form className='d-flex mb-3'>
                     <Form.Group className="">
                         <Form.Control className={styles.input} type="number" 
@@ -46,12 +46,12 @@ const request = (props) => {
                     <Button className={`${styles.btn1} ms-2`} onClick={handleDonation}>Contribute</Button>
                 </Form>
             </div>
-            <div className={`d-flex flex-column flex-lg-row justify-content-between w-50`}>
-                <div>
+            <div className={`d-flex flex-column flex-lg-row justify-content-between w-md-50`}>
+                <div className={`d-flex flex-column align-items-center align-items-md-start mt-3`}>
                     <div>People Rated: {numberOfRatings}</div>
                     <Button className={`mt-2 ${styles.button} ${styles.btn1}`}>Rate</Button>
                 </div>
-                <div className={`d-flex flex-column align-items-end`}>
+                <div className={`d-flex flex-column align-items-center align-items-md-end mt-3`}>
                     <div>People Voted For Ban: {numberOfVotesForBan}</div>   
                     <Button className={`mt-2 ${styles.button} ${styles.btn2}`}>Ban</Button>
                 </div>
