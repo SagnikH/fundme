@@ -22,22 +22,26 @@ class Request {
 		try {
 			const managerRating = await this.#Manager.methods.rating().call();
 			const managerId = await this.#Manager.methods.id().call();
+			const noOfRaters = await this.#Manager.methods.raters().call();
 			const description = await this.#Request.methods.description().call();
 			const receipientId = await this.#Request.methods.recipient().call();
 			const minimumContribution = await this.#Request.methods.minimumContribution().call();
 			const requestedAmount = await this.#Request.methods.amount().call();
 			const totalContributed = await this.#Request.methods.totalAmountCollected().call();
 			const banCount = await this.#Request.methods.totalBanCount().call();
+			const contributorCount = await this.#Request.methods.contributorCount().call();
 
 			return {
-				managerId,
-				managerRating,
+				walletId: managerId,
+				rating: managerRating,
 				description,
-				receipientId,
-				minimumContribution,
-				requestedAmount,
+				recipientWalletId: receipientId,
+				minContribution: minimumContribution,
+				demandedAmount: requestedAmount,
 				totalContributed,
-				banCount,
+				numberOfVotesForBan: banCount,
+				numberOfRatings: noOfRaters,
+				numberOfContributions: contributorCount,
 			};
 		} catch (e) {
 			console.error(e.message);
@@ -62,17 +66,17 @@ class Request {
 		}
 	}
 
-	async banRequest() {
+	async banRequest(account) {
 		try {
-			await this.#Request.methods.banRequest().call();
+			await this.#Request.methods.banRequest().send({ from: account });
 		} catch (e) {
 			console.log(e.message);
 		}
 	}
 
-	async rate(rating) {
+	async rate(rating, account) {
 		try {
-			this.#Manager.methods.rate(rating).send({ from: account });
+			await this.#Manager.methods.rate(rating).send({ from: account });
 		} catch (e) {
 			console.log(e.message);
 		}
@@ -87,3 +91,5 @@ class Request {
 		}
 	}
 }
+
+module.exports = Request;

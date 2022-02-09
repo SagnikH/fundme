@@ -1,11 +1,6 @@
-import NavigationBar from '../components/NavigationBar';
 import styles from "../styles/Home.module.css";
 import { useEffect, useState } from "react";
 import 'bootstrap/dist/css/bootstrap.min.css';
-import web3 from "../ethereum/web3";
-import requestFactory from "../ethereum/requestFactory";
-
-import requestList from "../utils/requestsList";
 
 export default function Home(props) {
 	const [currentAccount, setCurrentAccount] = useState(null);
@@ -25,25 +20,6 @@ export default function Home(props) {
 		}
 	};
 
-
-	const connect = async () => {
-		try {
-			const accounts = await ethereum.request({
-				method: "eth_requestAccounts",
-			});
-			console.log("received eth wallets", accounts);
-			setCurrentAccount(accounts[0]);
-			const ether = await web3.eth.getBalance(accounts[0]);
-			console.log("ether in account", ether);
-		} catch (e) {
-			if (e.code === 4001) {
-				console.log("Please connect to metamask");
-			} else {
-				console.error(e.message);
-			}
-		}
-	};
-
 	return (
 		<>
 			{/* <h1>Connect to metamask</h1>
@@ -55,15 +31,4 @@ export default function Home(props) {
 			</div>
 		</>
 	);
-}
-
-export async function getServerSideProps(context) {
-	const requests = await requestList();
-	console.log("Request Array", requests);
-
-	return {
-		props: {
-			requests,
-		}, // will be passed to the page component as props
-	};
 }
