@@ -3,7 +3,6 @@ import { useRouter } from "next/router";
 import { Button, Form } from "react-bootstrap";
 import React, { useEffect, useState } from "react";
 import Request from "../../utils/request";
-import web3 from "../../ethereum/web3";
 
 const request = (props) => {
 	const router = useRouter();
@@ -24,97 +23,98 @@ const request = (props) => {
 
 	const [donation, setDonation] = useState(minContribution);
 	const [RequestObj, setRequest] = useState(null);
-	const [currentAccount, setCurrentAccount] = useState(null);
-  const [givenRating, setGivenRating] = useState(5);
-
-	const handleAccountsChanged = (accounts) => {
-		if (accounts.length === 0) {
-			// MetaMask is locked or the user has not connected any accounts
-			console.log("Please connect to MetaMask.");
-		} else if (accounts[0] !== currentAccount) {
-			setCurrentAccount(accounts[0]);
-			console.log("current account", accounts[0]);
-		}
-	};
+	const [givenRating, setGivenRating] = useState(5);
+	const [loading, setLoading] = useState(false);
 
 	useEffect(() => {
-		if (typeof window !== "undefined" && window.ethereum)
-			window.ethereum.on("accountsChanged", handleAccountsChanged);
 		//start loading state here
 		setRequest(new Request(id));
+		setLoading(true);
 	}, []);
 
 	useEffect(() => {
 		(async () => {
 			try {
-				await RequestObj.init();
-				console.log("done init");
+				if (RequestObj) {
+					await RequestObj.init();
+					console.log("done init");
+				}
 				//stop loading here
 			} catch (e) {
 				//maybe set an error flag or something
+				console.error(e.message);
+			} finally {
+				setLoading(false);
 			}
 		})();
 	}, [RequestObj]);
 
-	const handleMetamask = async () => {
-		window.alert("Please connect with Metamask");
-		const accounts = await web3.eth.getAccounts();
-		console.log(accounts);
-    if(accounts.length)
-		  setCurrentAccount(accounts[0]);
-	};
-
 	const handleDonation = async (e) => {
 		e.preventDefault();
-		// alert(`${donation} donated`);
 
-		try {
-			if (currentAccount === null) {
-        await handleMetamask();
-			} else {
-				await RequestObj.contribute(donation, currentAccount);
+		if (!loading) {
+			try {
+				if (props.currentAccount === null) {
+					window.alert("Connect to metamask");
+				} else {
+					setLoading(true);
+					await RequestObj.contribute(donation, props.currentAccount);
+				}
+				//try refereshing for getserverside props update
+			} catch (e) {
+        console.error(e.message);
+			} finally {
+        setLoading(false);
+        router.reload(window.location.pathname);
 			}
-			//try refereshing for getserverside props update
-		} catch (e) {
-			console.error(e.message);
 		}
 	};
-  
-  const handleRating = async (e) => {
-    e.preventDefault();
 
-    try {
-			if (currentAccount === null) {
-        await handleMetamask();
-			} else {
-      console.log("rating started");
-				await RequestObj.rate(givenRating, currentAccount);
+	const handleRating = async (e) => {
+		e.preventDefault();
+
+		if (!loading) {
+			try {
+				if (props.currentAccount === null) {
+					window.alert("Connect to metamask");
+				} else {
+					console.log("rating started");
+					setLoading(true);
+					await RequestObj.rate(givenRating, props.currentAccount);
+				}
+				//TODO: try refereshing for getserverside props update
+			} catch (e) {
+				console.error(e.message);
+			} finally {
+				console.log("rating done");
+				setLoading(false);
+				router.reload(window.location.pathname);
 			}
-			//TODO: try refereshing for getserverside props update
-		} catch (e) {
-			console.error(e.message);
-		} finally {
-      console.log("rating done");
-    }
-  }
+		}
+	};
 
-  const handleBans = async(e) => {
-    e.preventDefault();
+	const handleBans = async (e) => {
+		e.preventDefault();
 
-    try {
-			if (currentAccount === null) {
-        await handleMetamask();
-			} else {
-      console.log("bans started");
-				await RequestObj.banRequest(currentAccount);
+		if (!loading) {
+			try {
+				if (props.currentAccount === null) {
+					window.alert("Connect to metamask");
+				} else {
+					console.log("bans started");
+					setLoading(true);
+					await RequestObj.banRequest(props.currentAccount);
+				}
+				//TODO: try refereshing for getserverside props update
+			} catch (e) {
+				console.error(e.message);
+			} finally {
+				console.log("bans done");
+				setLoading(false);
+				router.reload(window.location.pathname);
 			}
-			//TODO: try refereshing for getserverside props update
-		} catch (e) {
-			console.error(e.message);
-		} finally {
-      console.log("bans done");
-    }
-  }
+		}
+	};
 
 	return (
 		<div
@@ -157,12 +157,16 @@ const request = (props) => {
 			<div className={`d-flex flex-column flex-lg-row justify-content-between w-50`}>
 				<div>
 					<div>People Rated: {numberOfRatings}</div>
-          {/*TODO: need a input field */}
-					<Button className={`mt-2 ${styles.button} ${styles.btn1}`} onClick={handleRating}>Rate</Button>
+					{/*TODO: need a input field */}
+					<Button className={`mt-2 ${styles.button} ${styles.btn1}`} onClick={handleRating}>
+						Rate
+					</Button>
 				</div>
 				<div className={`d-flex flex-column align-items-end`}>
 					<div>People Voted For Ban: {numberOfVotesForBan}</div>
-					<Button className={`mt-2 ${styles.button} ${styles.btn2}`} onClick={handleBans}>Ban</Button>
+					<Button className={`mt-2 ${styles.button} ${styles.btn2}`} onClick={handleBans}>
+						Ban
+					</Button>
 				</div>
 			</div>
 		</div>
@@ -173,6 +177,7 @@ export default request;
 
 export async function getServerSideProps(context) {
 	const id = context.params.id;
+	console.log("data for request", id);
 
 	const request = new Request(id);
 	let data = "",

@@ -3,9 +3,10 @@ import styles from "../styles/Navigation.module.css";
 import Link from "next/link";
 import web3 from "../ethereum/web3";
 
-export default function NavigationBar() {
+export default function NavigationBar(props) {
 	const connect = async (e) => {
     e.preventDefault();
+    console.log("clicked");
 
 		try {
 			const accounts = await ethereum.request({ method: "eth_requestAccounts" });
@@ -13,6 +14,8 @@ export default function NavigationBar() {
 			const ether = await web3.eth.getBalance(accounts[0]);
 			console.log("ether in account", ether);
       window.alert("connected to metamask");
+
+      props.setAccount(accounts[0]);
 		} catch (e) {
 			if (e.code === 4001) {
 				console.log("Please connect to metamask");

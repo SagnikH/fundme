@@ -142,7 +142,7 @@ contract Request {
             contributorCount++;
             contributors[msg.sender] = true;
         }
-
+        //TODO: return the excess amt?
         totalAmountCollected += msg.value;
     }
 

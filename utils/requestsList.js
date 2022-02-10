@@ -21,13 +21,17 @@ const requestsList = async () => {
 			let managerId = await Manager.methods.id().call();
 			let minimumContribution = await Request.methods.minimumContribution().call();
 			let requestedAmount = await Request.methods.amount().call();
+			let isBanned = await Request.methods.banned().call();
+			let isWithdrawn = await Request.methods.approved().call();
 
 			let requestObj = {
-        id: currentRequestAddress,
+				id: currentRequestAddress,
 				rating: managerRating,
 				walletId: managerId,
 				minContribution: minimumContribution,
 				demandedAmount: requestedAmount,
+				isBanned,
+				isWithdrawn,
 			};
 
 			requests.push(requestObj);
